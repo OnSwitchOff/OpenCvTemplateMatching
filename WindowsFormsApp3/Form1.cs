@@ -152,6 +152,7 @@ namespace WindowsFormsApp3
 			labelTargetPos.Visible = false;
 			btnFindSteps.Visible = false;
 			labelResultDep.Visible = false;
+			labelStepsCur.Visible = false;
 		}
 
 		public Form1()
@@ -219,7 +220,7 @@ namespace WindowsFormsApp3
 						{
 							case NewItemDep.SEND_TO_TRANSFER:
 								resultStr += " active dep send to transfer";
-								labelResultDep.Text = "Current section is " + NewItemDep.SEND_TO_TRANSFER + "Press-" + Arrows.DOWN + " to " + NewItemDep.KEEP_ITEM;
+								labelResultDep.Text = "Current section is " + NewItemDep.SEND_TO_TRANSFER + " Press-" + Arrows.DOWN + " to " + NewItemDep.KEEP_ITEM;
 								break;
 							case NewItemDep.KEEP_ITEM:
 								resultStr += " active dep keep item";
@@ -227,7 +228,7 @@ namespace WindowsFormsApp3
 								break;
 							case NewItemDep.QUICK_SELL:
 								resultStr += " active dep quick sell";
-								labelResultDep.Text = "Current section is " + NewItemDep.QUICK_SELL + "Press-" + Arrows.UP + " to " + NewItemDep.KEEP_ITEM;
+								labelResultDep.Text = "Current section is " + NewItemDep.QUICK_SELL + " Press-" + Arrows.UP + " to " + NewItemDep.KEEP_ITEM;
 								break;
 						}
 						break;
