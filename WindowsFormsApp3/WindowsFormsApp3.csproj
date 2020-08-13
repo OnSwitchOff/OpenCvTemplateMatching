@@ -93,6 +93,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\CATALOGUE_label - Copy.png" />
     <Content Include="bin\Debug\CATALOGUE_label.png" />
     <Content Include="bin\Debug\CUSTOMIZE_label.png" />
     <Content Include="bin\Debug\dje\WindowsFormsApp3.resources.dll" />
