@@ -77,6 +77,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="bin\Debug\tessdata\eng.traineddata" />
+    <None Include="bin\Debug\tessdata\rus.traineddata" />
     <None Include="bin\Debug\WindowsFormsApp3.exe.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -93,6 +95,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\ActiveCard.png" />
+    <Content Include="bin\Debug\CARD_INFO.png" />
     <Content Include="bin\Debug\CATALOGUE_label - Copy.png" />
     <Content Include="bin\Debug\CATALOGUE_label.png" />
     <Content Include="bin\Debug\CUSTOMIZE_label.png" />
@@ -102,8 +106,14 @@
     <Content Include="bin\Debug\Emgu.CV.Platform.NetFramework.xml" />
     <Content Include="bin\Debug\Emgu.CV.Platform.NetStandard.dll" />
     <Content Include="bin\Debug\Emgu.CV.Platform.NetStandard.xml" />
+    <Content Include="bin\Debug\ITEMS_label.png" />
+    <Content Include="bin\Debug\ITEMS_label2.png" />
+    <Content Include="bin\Debug\ITEMS_withnumber_label.png" />
+    <Content Include="bin\Debug\ITEMS_withnumber_label2.png" />
     <Content Include="bin\Debug\KEEP_ITEMS_activechose_label.png" />
     <Content Include="bin\Debug\KEEP_ITEMS_activechose_label2.png" />
+    <Content Include="bin\Debug\KEEP_ITEMS_activechose_label3.png" />
+    <Content Include="bin\Debug\KEEP_ITEMS_activechose_label4.png" />
     <Content Include="bin\Debug\KEEP_ITEMS_label.png" />
     <Content Include="bin\Debug\KEEP_ITEMS_label2.png" />
     <Content Include="bin\Debug\KEEP_ITEMS_label3.png" />
@@ -113,11 +123,13 @@
     <Content Include="bin\Debug\NEW_ITEM_label2.png" />
     <Content Include="bin\Debug\NEW_ITEM_label3.png" />
     <Content Include="bin\Debug\PLAYER_label.png" />
+    <Content Include="bin\Debug\PLAYER_label2.png" />
     <Content Include="bin\Debug\QUICK_SELL_label.png" />
     <Content Include="bin\Debug\SEND_TO_TRANSFER_label.png" />
     <Content Include="bin\Debug\SETTINGS_label.png" />
     <Content Include="bin\Debug\TEAM_SHEETS_label.png" />
     <Content Include="bin\Debug\test.png" />
+    <Content Include="bin\Debug\trans.png" />
     <Content Include="bin\Debug\WindowsFormsApp3.exe" />
     <Content Include="bin\Debug\WindowsFormsApp3.pdb" />
     <Content Include="bin\Debug\x64\concrt140.dll" />

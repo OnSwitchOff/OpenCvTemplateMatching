@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
+using Emgu.CV.OCR;
 using Emgu.CV.Structure;
 
 namespace WindowsFormsApp3
@@ -143,7 +144,6 @@ namespace WindowsFormsApp3
 		{
 			img = new Mat("test.png");
 			result = new Mat();
-			resultStr = "";
 			minLoc = new Point();
 			maxLoc = new Point();
 			rectSize = new Size();
@@ -153,6 +153,15 @@ namespace WindowsFormsApp3
 			btnFindSteps.Visible = false;
 			labelResultDep.Visible = false;
 			labelStepsCur.Visible = false;
+			checkBox1.Checked = false;
+			checkBox1.Visible = false;
+			richTextBox1.Visible = false;
+			richTextBox2.Visible = false;
+			pictureBox2.Visible = false;
+			pictureBox3.Visible = false;
+			checkBox1.Visible = false;
+			button2.Visible = false;
+			button3.Visible = false;
 		}
 
 		public Form1()
@@ -225,6 +234,7 @@ namespace WindowsFormsApp3
 							case NewItemDep.KEEP_ITEM:
 								resultStr += " active dep keep item";
 								labelResultDep.Text = "Current section is " +  NewItemDep.KEEP_ITEM;
+								button2_Click(sender, e);
 								break;
 							case NewItemDep.QUICK_SELL:
 								resultStr += " active dep quick sell";
@@ -312,6 +322,7 @@ namespace WindowsFormsApp3
 
 		private void btnFindSteps_Click(object sender, EventArgs e)
 		{
+			
 			string  resultSteps = "";
 			CustomizeActivePos target = (CustomizeActivePos)numericUpDown1.Value;
 			if (target == resultPos) resultSteps = "SAME TARGET!";
@@ -345,6 +356,265 @@ namespace WindowsFormsApp3
 			labelStepsCur.Text = resultSteps + " => " + target;
 			labelStepsCur.Visible = true;
 
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				NormalizeStartData();
+				richTextBox1.Visible = true;
+				richTextBox2.Visible = true;
+				pictureBox2.Visible = true;
+				pictureBox3.Visible = true;
+				checkBox1.Visible = true;
+				button2.Visible = true;
+				button3.Visible = true;
+				Mat temp = new Mat("ITEMS_label.png");
+				Mat temp2 = new Mat("ITEMS_label2.png");
+				Mat tempNum = new Mat("ITEMS_withnumber_label.png");
+				Mat tempNum2 = new Mat("ITEMS_withnumber_label2.png");
+				Mat test = new Mat("test.png");
+				CvInvoke.MatchTemplate(test, temp , result, TemplateMatchingType.Sqdiff);
+				CvInvoke.MinMaxLoc(result, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+				if (minVal < 3000)
+				{
+					rectSize = new Size(tempNum.Cols, tempNum.Rows);
+					CvInvoke.Rectangle(img, new Rectangle(new Point(minLoc.X - 36, minLoc.Y), rectSize), new MCvScalar(255, 0, 0));
+					pictureBox1.Image = img.ToBitmap();
+					Bitmap target = new Bitmap(tempNum.Width, tempNum.Height);
+					Graphics g = Graphics.FromImage(target);
+					g.DrawImage(test.ToBitmap(), new Rectangle(new Point(0, 0), rectSize),
+										new Rectangle(new Point(minLoc.X - 36, minLoc.Y), rectSize),
+										GraphicsUnit.Pixel);
+					pictureBox2.Image = target;
+					Image<Gray, Byte> testImage = target.ToImage<Gray, byte>();
+
+					Tesseract tesseract = new Tesseract("tessdata", "eng", OcrEngineMode.TesseractLstmCombined);
+					tesseract.SetImage(testImage);
+					tesseract.Recognize();
+					richTextBox1.Text = tesseract.GetUTF8Text();
+					tesseract.Dispose();
+				}
+				else
+				{
+					CvInvoke.MatchTemplate(test, temp2, result, TemplateMatchingType.Sqdiff);
+					CvInvoke.MinMaxLoc(result, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+					if (minVal < 50000)
+					{
+						rectSize = new Size(tempNum2.Cols, tempNum2.Rows);
+						CvInvoke.Rectangle(img, new Rectangle(new Point(minLoc.X - 28, minLoc.Y), rectSize), new MCvScalar(255, 0, 0));
+						pictureBox1.Image = img.ToBitmap();
+						Bitmap target = new Bitmap(tempNum2.Width, tempNum2.Height);
+						Graphics g = Graphics.FromImage(target);
+						g.DrawImage(test.ToBitmap(), new Rectangle(new Point(0, 0), rectSize),
+											new Rectangle(new Point(minLoc.X - 28, minLoc.Y), rectSize),
+											GraphicsUnit.Pixel);
+						pictureBox2.Image = target;
+						Image<Gray, Byte> testImage = target.ToImage<Gray, byte>();
+
+						Tesseract tesseract = new Tesseract("tessdata", "eng", OcrEngineMode.TesseractLstmCombined);
+						tesseract.SetImage(testImage);
+						tesseract.Recognize();
+						richTextBox1.Text = tesseract.GetUTF8Text();
+						tesseract.Dispose();
+					}
+
+				}
+				button3_Click(sender, e);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			
+		}
+
+		private void button3_Click(object sender, EventArgs e)
+		{
+			try
+			{			
+
+				NormalizeStartData();
+				richTextBox1.Visible = true;
+				richTextBox2.Visible = true;
+				pictureBox2.Visible = true;
+				pictureBox3.Visible = true;
+				checkBox1.Visible = true;
+				button2.Visible = true;
+				button3.Visible = true;
+				Mat temp = new Mat("KEEP_ITEMS_activechose_label.png");
+				Mat temp2 = new Mat("KEEP_ITEMS_activechose_label2.png");
+				Mat temp3 = new Mat("KEEP_ITEMS_activechose_label3.png");
+				Mat tempActiveCard = new Mat("ActiveCard.png");
+				Mat tempCardInfo = new Mat("CARD_INFO.png");
+				Mat test = new Mat("test.png");
+				CvInvoke.MatchTemplate(test, temp, result, TemplateMatchingType.Sqdiff);
+				CvInvoke.MinMaxLoc(result, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+				if (minVal < 3000)
+				{
+					richTextBox1.Visible = true;
+					richTextBox2.Visible = true;
+					pictureBox2.Visible = true;
+					pictureBox3.Visible = true;
+					checkBox1.Visible = true;
+					rectSize = new Size(tempActiveCard.Cols, tempActiveCard.Rows);
+					CvInvoke.Rectangle(img, new Rectangle(new Point(minLoc.X, minLoc.Y), rectSize), new MCvScalar(255, 0, 0));
+					pictureBox1.Image = img.ToBitmap();
+
+					Bitmap target = new Bitmap(tempActiveCard.Width, tempActiveCard.Height);
+					Graphics g = Graphics.FromImage(target);
+					g.DrawImage(test.ToBitmap(), new Rectangle(new Point(0, 0), rectSize),
+										new Rectangle(new Point(minLoc.X, minLoc.Y), rectSize),
+										GraphicsUnit.Pixel);
+
+
+					Mat matTarget = BitmapToMapConvert(target);
+
+					rectSize = new Size(tempCardInfo.Cols-15, 30);
+					
+					Bitmap target2 = new Bitmap(tempCardInfo.Width-15, 30);
+					Graphics g2 = Graphics.FromImage(target2);
+					g2.DrawImage(matTarget.ToBitmap(), new Rectangle(new Point(0, 0), rectSize),
+										new Rectangle(new Point(10, 86), rectSize),
+										GraphicsUnit.Pixel);
+
+					CvInvoke.Rectangle(matTarget, new Rectangle(new Point(10,86), rectSize), new MCvScalar(0, 0, 255),2);
+					pictureBox3.Image = matTarget.ToBitmap();
+
+					Image<Gray, Byte> testImage = target2.ToImage<Gray, byte>();
+					Tesseract tesseract = new Tesseract("tessdata", "eng", OcrEngineMode.TesseractLstmCombined);
+					tesseract.SetImage(testImage);
+					tesseract.Recognize();
+					richTextBox2.Text = tesseract.GetUTF8Text();
+					tesseract.Dispose();
+
+
+					Mat temp4 = new Mat("Player_label.png");
+					CvInvoke.MatchTemplate(matTarget, temp4, result, TemplateMatchingType.Sqdiff);
+					CvInvoke.MinMaxLoc(result, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+					if(minVal < 3000)
+					{
+						checkBox1.Checked = true;
+					}
+
+				}
+				else
+				{
+					CvInvoke.MatchTemplate(test, temp2, result, TemplateMatchingType.Sqdiff);
+					CvInvoke.MinMaxLoc(result, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+					if (minVal < 50000)
+					{
+						richTextBox1.Visible = true;
+						richTextBox2.Visible = true;
+						pictureBox2.Visible = true;
+						pictureBox3.Visible = true;
+						checkBox1.Visible = true;
+						rectSize = new Size(tempActiveCard.Cols, tempActiveCard.Rows);
+						CvInvoke.Rectangle(img, new Rectangle(new Point(minLoc.X, minLoc.Y), rectSize), new MCvScalar(255, 0, 0));
+						pictureBox1.Image = img.ToBitmap();
+
+						Bitmap target = new Bitmap(tempActiveCard.Width, tempActiveCard.Height);
+						Graphics g = Graphics.FromImage(target);
+						g.DrawImage(test.ToBitmap(), new Rectangle(new Point(0, 0), rectSize),
+											new Rectangle(new Point(minLoc.X, minLoc.Y), rectSize),
+											GraphicsUnit.Pixel);
+
+
+						Mat matTarget = BitmapToMapConvert(target);
+
+						rectSize = new Size(tempCardInfo.Cols-15, 30);
+
+						Bitmap target2 = new Bitmap(tempCardInfo.Width-15, 30);
+						Graphics g2 = Graphics.FromImage(target2);
+						g2.DrawImage(matTarget.ToBitmap(), new Rectangle(new Point(0, 0), rectSize),
+											new Rectangle(new Point(10, 90), rectSize),
+											GraphicsUnit.Pixel);
+
+						CvInvoke.Rectangle(matTarget, new Rectangle(new Point(10, 90), rectSize), new MCvScalar(0, 0, 255), 2);
+						pictureBox3.Image = matTarget.ToBitmap();
+
+						Image<Gray, Byte> testImage = target2.ToImage<Gray, byte>();
+						Tesseract tesseract = new Tesseract("tessdata", "eng", OcrEngineMode.LstmOnly);
+						tesseract.SetImage(testImage);
+						tesseract.Recognize();
+						richTextBox2.Text = tesseract.GetUTF8Text().Split('\n')[0];
+						tesseract.Dispose();
+
+						Mat temp4 = new Mat("Player_label2.png");
+						CvInvoke.MatchTemplate(matTarget, temp4, result, TemplateMatchingType.Sqdiff);
+						CvInvoke.MinMaxLoc(result, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+						if (minVal < 50000)
+						{
+							checkBox1.Checked = true;
+						}
+					}
+					else
+					{
+						CvInvoke.MatchTemplate(test, temp3, result, TemplateMatchingType.Sqdiff);
+						CvInvoke.MinMaxLoc(result, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+						if (minVal < 3000)
+						{
+							richTextBox1.Visible = true;
+							richTextBox2.Visible = true;
+							pictureBox2.Visible = true;
+							pictureBox3.Visible = true;
+							checkBox1.Visible = true;
+							rectSize = new Size(tempActiveCard.Cols, tempActiveCard.Rows);
+							CvInvoke.Rectangle(img, new Rectangle(new Point(minLoc.X, minLoc.Y), rectSize), new MCvScalar(255, 0, 0));
+							pictureBox1.Image = img.ToBitmap();
+
+							Bitmap target = new Bitmap(tempActiveCard.Width, tempActiveCard.Height);
+							Graphics g = Graphics.FromImage(target);
+							g.DrawImage(test.ToBitmap(), new Rectangle(new Point(0, 0), rectSize),
+												new Rectangle(new Point(minLoc.X+2, minLoc.Y+5), rectSize),
+												GraphicsUnit.Pixel);
+
+
+							Mat matTarget = BitmapToMapConvert(target);
+
+							rectSize = new Size(tempCardInfo.Cols-15, 30);
+
+							Bitmap target2 = new Bitmap(tempCardInfo.Width-15, 30);
+							Graphics g2 = Graphics.FromImage(target2);
+							g2.DrawImage(matTarget.ToBitmap(), new Rectangle(new Point(0, 0), rectSize),
+												new Rectangle(new Point(10, 86), rectSize),
+												GraphicsUnit.Pixel);
+
+							CvInvoke.Rectangle(matTarget, new Rectangle(new Point(10, 86), rectSize), new MCvScalar(0, 0, 255), 2);
+							pictureBox3.Image = matTarget.ToBitmap();
+
+							Image<Gray, Byte> testImage = target2.ToImage<Gray, byte>();
+							Tesseract tesseract = new Tesseract("tessdata", "eng", OcrEngineMode.TesseractLstmCombined);
+							tesseract.SetImage(testImage);
+							tesseract.Recognize();
+							richTextBox2.Text = tesseract.GetUTF8Text().Split('\n')[0];
+							tesseract.Dispose();
+
+							Mat temp4 = new Mat("Player_label.png");
+							CvInvoke.MatchTemplate(matTarget, temp4, result, TemplateMatchingType.Sqdiff);
+							CvInvoke.MinMaxLoc(result, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+							if (minVal < 3000)
+							{
+								checkBox1.Checked = true;
+							}
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+		}
+
+		public Mat BitmapToMapConvert(Bitmap bmp)
+		{
+			return bmp.ToImage<Bgr, byte>().Mat;
+		}
+
+		private void checkBox1_CheckedChanged(object sender, EventArgs e)
+		{
 		}
 
 		private CustomizeActivePos CustomizeActivePosDetect(Mat sourceImg, Dictionary<CustomizeActivePos, List<Mat>> templates, Mat result, TemplateMatchingType method, Mat mask = null)

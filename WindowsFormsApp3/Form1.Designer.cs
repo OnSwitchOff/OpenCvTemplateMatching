@@ -32,8 +32,6 @@
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.button1 = new System.Windows.Forms.Button();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-			this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-			this.openFileDialog3 = new System.Windows.Forms.OpenFileDialog();
 			this.nextBtn = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
@@ -42,8 +40,17 @@
 			this.btnFindSteps = new System.Windows.Forms.Button();
 			this.labelStepsCur = new System.Windows.Forms.Label();
 			this.labelResultDep = new System.Windows.Forms.Label();
+			this.button2 = new System.Windows.Forms.Button();
+			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+			this.pictureBox2 = new System.Windows.Forms.PictureBox();
+			this.button3 = new System.Windows.Forms.Button();
+			this.pictureBox3 = new System.Windows.Forms.PictureBox();
+			this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// pictureBox1
@@ -62,14 +69,6 @@
 			// openFileDialog1
 			// 
 			this.openFileDialog1.FileName = "openFileDialog1";
-			// 
-			// openFileDialog2
-			// 
-			this.openFileDialog2.FileName = "openFileDialog2";
-			// 
-			// openFileDialog3
-			// 
-			this.openFileDialog3.FileName = "openFileDialog3";
 			// 
 			// nextBtn
 			// 
@@ -122,10 +121,61 @@
 			resources.ApplyResources(this.labelResultDep, "labelResultDep");
 			this.labelResultDep.Name = "labelResultDep";
 			// 
+			// button2
+			// 
+			resources.ApplyResources(this.button2, "button2");
+			this.button2.Name = "button2";
+			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
+			// richTextBox1
+			// 
+			resources.ApplyResources(this.richTextBox1, "richTextBox1");
+			this.richTextBox1.Name = "richTextBox1";
+			// 
+			// pictureBox2
+			// 
+			resources.ApplyResources(this.pictureBox2, "pictureBox2");
+			this.pictureBox2.Name = "pictureBox2";
+			this.pictureBox2.TabStop = false;
+			// 
+			// button3
+			// 
+			resources.ApplyResources(this.button3, "button3");
+			this.button3.Name = "button3";
+			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
+			// 
+			// pictureBox3
+			// 
+			resources.ApplyResources(this.pictureBox3, "pictureBox3");
+			this.pictureBox3.Name = "pictureBox3";
+			this.pictureBox3.TabStop = false;
+			// 
+			// richTextBox2
+			// 
+			resources.ApplyResources(this.richTextBox2, "richTextBox2");
+			this.richTextBox2.Name = "richTextBox2";
+			// 
+			// checkBox1
+			// 
+			resources.ApplyResources(this.checkBox1, "checkBox1");
+			this.checkBox1.ForeColor = System.Drawing.Color.Maroon;
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+			// 
 			// Form1
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.checkBox1);
+			this.Controls.Add(this.richTextBox2);
+			this.Controls.Add(this.pictureBox3);
+			this.Controls.Add(this.button3);
+			this.Controls.Add(this.pictureBox2);
+			this.Controls.Add(this.richTextBox1);
+			this.Controls.Add(this.button2);
 			this.Controls.Add(this.labelResultDep);
 			this.Controls.Add(this.labelStepsCur);
 			this.Controls.Add(this.btnFindSteps);
@@ -141,6 +191,8 @@
 			this.Load += new System.EventHandler(this.Form1_Load);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -151,8 +203,6 @@
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
-		private System.Windows.Forms.OpenFileDialog openFileDialog2;
-		private System.Windows.Forms.OpenFileDialog openFileDialog3;
 		private System.Windows.Forms.Button nextBtn;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.NumericUpDown numericUpDown1;
@@ -161,6 +211,13 @@
 		private System.Windows.Forms.Button btnFindSteps;
 		private System.Windows.Forms.Label labelStepsCur;
 		private System.Windows.Forms.Label labelResultDep;
+		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.RichTextBox richTextBox1;
+		private System.Windows.Forms.PictureBox pictureBox2;
+		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.PictureBox pictureBox3;
+		private System.Windows.Forms.RichTextBox richTextBox2;
+		public System.Windows.Forms.CheckBox checkBox1;
 	}
 }
 
